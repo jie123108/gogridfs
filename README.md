@@ -29,12 +29,13 @@ The module is configured with a JSON file. An example may look like this:
         "localhost:47012"
     ],
     "listen": "localhost:4242",  // the host and port to listen on
+    "field": "filename",         // get record by: filename or _id
     "logfile": "gogridfs.log",   // the logfile
     "database": "gofiles",       // the database that contains the GridFS
     "gridfscollection": "fs",    // the GridFS root
-    "handlepath": "/gofiles/",   // the path the handler will connect to
+    "handlepath": "/gridfs/",   // the path the handler will connect to
                                  // it will be cut from the file name so requests to
-                                 // /gofiles/some/path/file.png will serve
+                                 // /gridfs/some/path/file.png will serve
                                  // some/path/file.png from GridFS
     "mode": "strong"             // mgo mode of querying
                                  // strong    => safe, reads and writes on master only
@@ -56,7 +57,7 @@ upstream gogridfs {
 server {
     # more config
 
-    location /gofiles/ {
+    location /gridfs/ {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header Host $http_host;
         proxy_redirect off;
